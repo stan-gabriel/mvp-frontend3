@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import Layout from './components/Layout'
+import { Route, Routes } from 'react-router-dom'
+import Dashboard from './screens/Dashboard'
+import Monitor from './screens/Monitor'
+import Reports from './screens/reports/Reports'
+import Apps from './screens/Apps'
+import SignOut from './screens/SignOut'
+import { ReportsContextProvider } from './context/ReportsContext'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route path='/' element={<Dashboard />} />
+        <Route path='/monitor' element={<Monitor />} />
+        <Route
+          path='/reports'
+          element={
+            <ReportsContextProvider>
+              <Reports />
+            </ReportsContextProvider>
+          }
+        />
+        <Route path='/apps' element={<Apps />} />
+        <Route path='/sign-out' element={<SignOut />} />
+      </Route>
+    </Routes>
+  )
 }
 
-export default App;
+export default App
